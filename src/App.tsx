@@ -1,16 +1,26 @@
-// import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Store from "./pages/Store";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <div className="container bg-red-500 mx-auto">
-        <h1 className="text-8xl text-sky-500">Hello tailwindcssv4 and react</h1>
-        <div>
-          <h2 className="text-2xl">this is 2xl</h2>
+    <Router>
+      <div className="flex flex-col min-h-screen bg-[#f8f5f0]">
+        <Header />
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/goods" element={<Store />} />
+            {/* 추후 About, Goods, Contact 등 추가 */}
+          </Routes>
         </div>
+        <Footer />
       </div>
-    </div>
+    </Router>
   );
-};
+}
 
 export default App;

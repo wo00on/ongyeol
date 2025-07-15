@@ -1,1 +1,107 @@
 @import "tailwindcss";
+
+/* 기본 폰트 및 컬러 세팅 */
+body, .app-root {
+  font-family: 'Noto Sans KR', 'Pretendard', 'Apple SD Gothic Neo', Arial, sans-serif;
+  background: #F8F5F0;
+  color: #2D2A26;
+  margin: 0;
+  padding: 0;
+}
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Hero Section */
+.hero-section {
+  width: 100vw;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(120deg, #F8F5F0 80%, #C72C2C10 100%);
+  overflow: hidden;
+  padding-top: 64px;
+  padding-bottom: 48px;
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.18;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.brand-title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+  color: #2D2A26;
+}
+.brand-hanja {
+  font-size: 2rem;
+  font-family: 'Noto Serif KR', serif;
+  color: #C72C2C;
+  margin-left: 0.3em;
+  vertical-align: middle;
+}
+.brand-slogan {
+  font-size: 1.3rem;
+  color: #5B4B3A;
+  margin-top: 0.5em;
+  line-height: 1.6;
+}
+
+/* Brand Intro Section */
+.brand-intro {
+  max-width: 520px;
+  margin: 56px auto 0 auto;
+  background: #fff9f3;
+  border-radius: 24px;
+  box-shadow: 0 2px 16px 0 #e5d8c680;
+  padding: 40px 32px 32px 32px;
+  text-align: left;
+}
+.brand-intro h2 {
+  font-size: 1.5rem;
+  color: #C72C2C;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+.brand-intro p {
+  font-size: 1.1rem;
+  margin-bottom: 1.2em;
+  color: #2D2A26;
+}
+.brand-intro ul {
+  padding-left: 1.2em;
+  color: #5B4B3A;
+  font-size: 1rem;
+  margin: 0;
+}
+.brand-intro li {
+  margin-bottom: 0.5em;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .brand-title { font-size: 2rem; }
+  .brand-hanja { font-size: 1.2rem; }
+  .brand-intro { padding: 24px 10px 20px 10px; }
+  .hero-section { padding-top: 32px; padding-bottom: 24px; }
+}
