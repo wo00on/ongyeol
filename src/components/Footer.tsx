@@ -1,5 +1,6 @@
 import React from "react";
-//d
+//d//
+//s
 function Footer() {
   return (
     <footer className="w-full mt-16 bg-white border-t border-gray-200 text-[#222] text-sm">
