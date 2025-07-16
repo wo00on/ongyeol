@@ -54,5 +54,5 @@ function HeroSection() {
     </motion.section>
   );
 }
-
+// 살려줘
 export default HeroSection; 
