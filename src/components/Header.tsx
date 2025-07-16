@@ -14,7 +14,7 @@ const navText: { [key: string]: { label: string; to: string }[] } = {
     { label: "Contact", to: "/contact" },
   ],
 };
-
+//이렇게 하는거다
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const { lang, setLang } = useContext(LanguageContext);
@@ -75,7 +75,7 @@ function Header() {
         </Link>
         <nav className="flex items-center gap-6">
           <ul className={`flex gap-6 text-base font-medium ${navTextColor} font-serif`} style={{fontFamily: 'Noto Serif KR, serif'}}>
-            {navText[lang].map((item: { label: string; to: string }, idx: number) => (
+            {navText[lang].map((item: { label: string; to: string }) => (
               <li key={item.label}>
                 {item.label === (lang === 'ko' ? '브랜드' : 'Brand') ? (
                   <button
