@@ -1,15 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { LanguageContext } from "../App";
 
-const navItems = [
-  { label: "브랜드", to: "/#story" },
-  { label: "스토어", to: "/goods" },
-  { label: "Contact", to: "/contact" },
-];
+const navText: { [key: string]: { label: string; to: string }[] } = {
+  ko: [
+    { label: "브랜드", to: "/#story" },
+    { label: "스토어", to: "/goods" },
+    { label: "Contact", to: "/contact" },
+  ],
+  en: [
+    { label: "Brand", to: "/#story" },
+    { label: "Store", to: "/goods" },
+    { label: "Contact", to: "/contact" },
+  ],
+};
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<'ko' | 'en'>('ko');
+  const { lang, setLang } = useContext(LanguageContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,16 +29,13 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // 네비게이션 텍스트 색상: 배경이 투명일 땐 흰색, 스크롤 시 검정
   const navTextColor = scrolled ? "text-[#222]" : "text-white";
   const logoMainColor = scrolled ? "text-[#222]" : "text-white";
   const logoSubColor = scrolled ? { color: '#C9A227' } : { color: '#fff' };
   const headerBg = scrolled ? "bg-white/95 shadow-md backdrop-blur" : "bg-gradient-to-b from-black/60 to-transparent";
 
-  // 언어 토글 UI
   const handleLangToggle = () => setLang(lang === 'ko' ? 'en' : 'ko');
 
-  // 온결의 이야기(브랜드)로 스크롤 이동
   const handleBrandClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (location.pathname !== "/") {
@@ -45,7 +50,6 @@ function Header() {
     }
   };
 
-  // Contact로 스크롤 이동
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (location.pathname !== "/") {
@@ -66,38 +70,40 @@ function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 flex justify-between items-center h-16">
         <Link to="/" className={`text-2xl font-bold tracking-widest font-serif flex items-center gap-2 ${logoMainColor}`}> 
-          <span>온결</span>
+          <span>{lang === 'ko' ? '온결' : 'Ongyeol'}</span>
           <span className="text-base align-middle font-normal ml-1" style={logoSubColor}>溫潔</span>
         </Link>
         <nav className="flex items-center gap-6">
           <ul className={`flex gap-6 text-base font-medium ${navTextColor} font-serif`} style={{fontFamily: 'Noto Serif KR, serif'}}>
-            <li>
-              <button
-                onClick={handleBrandClick}
-                className={`hover:text-[#C72C2C] transition-colors duration-150`}
-                style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em', background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
-              >
-                브랜드
-              </button>
-            </li>
-            <li>
-              <Link
-                to="/goods"
-                className={`hover:text-[#C72C2C] transition-colors duration-150 ${location.pathname === "/goods" ? "text-[#C72C2C] font-bold" : ""}`}
-                style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em'}}
-              >
-                스토어
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={handleContactClick}
-                className={`hover:text-[#C72C2C] transition-colors duration-150`}
-                style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em', background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
-              >
-                Contact
-              </button>
-            </li>
+            {navText[lang].map((item: { label: string; to: string }, idx: number) => (
+              <li key={item.label}>
+                {item.label === (lang === 'ko' ? '브랜드' : 'Brand') ? (
+                  <button
+                    onClick={handleBrandClick}
+                    className={`hover:text-[#C72C2C] transition-colors duration-150`}
+                    style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em', background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
+                  >
+                    {item.label}
+                  </button>
+                ) : item.label === 'Contact' ? (
+                  <button
+                    onClick={handleContactClick}
+                    className={`hover:text-[#C72C2C] transition-colors duration-150`}
+                    style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em', background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    to={item.to}
+                    className={`hover:text-[#C72C2C] transition-colors duration-150 ${location.pathname === "/goods" && item.to === "/goods" ? "text-[#C72C2C] font-bold" : ""}`}
+                    style={{fontFamily: 'Noto Serif KR, serif', fontWeight: 600, letterSpacing: '0.02em'}}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            ))}
           </ul>
           {/* 언어 토글 버튼 */}
           <button
