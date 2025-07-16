@@ -9,5 +9,5 @@ export default defineConfig({
         tailwindcss(),
 
   ],
-  base: '/', // 루트 배포로 변경
+  base: '/ongyeol/', // 프로젝트 페이지 배포로 변경
 })
